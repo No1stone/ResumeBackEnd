@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan(value = "com.resume.back.mybatis.mapper.third", sqlSessionFactoryRef = "thirdSqlSessionFactory")
-public class ThirdDataSourceConfiguration {
+@MapperScan(value = "com.resume.back.database.mybatis.third", sqlSessionFactoryRef = "thirdSqlSessionFactory")
+public class MybatisThirdDataSourceConfiguration {
     @Bean(name = "thirdDataSource")
     @ConfigurationProperties(prefix="spring.third.datasource")
     public DataSource ThirdDataSource() {
@@ -27,11 +27,12 @@ public class ThirdDataSourceConfiguration {
                                                      ApplicationContext applicationContext) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(thirdDataSource);
-        sqlSessionFactoryBean.setTypeAliasesPackage("com.resume.back.mybatis.model");
-        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:com/resume/back/mybatis/mapper/third/**.xml"));
+        sqlSessionFactoryBean.setTypeAliasesPackage("com.resume.back.database.model");
+        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:com/resume/back/database/mybatis/third/**.xml"));
         return sqlSessionFactoryBean.getObject();
     }
 
+    
     @Bean(name = "thirdSessionTemplate")
     public SqlSessionTemplate thirdSqlSessionTemplate(@Qualifier("thirdSqlSessionFactory") SqlSessionFactory thirdSqlSessionFactory) {
         return new SqlSessionTemplate(thirdSqlSessionFactory);

@@ -1,4 +1,4 @@
-package com.resume.back.mybatis.mapper.second;
+package com.resume.back.database.mybatis.second;
 
 import org.apache.ibatis.annotations.Mapper;
 
